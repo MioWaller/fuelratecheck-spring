@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+So basically the purpose of this specific html file is to handle input for a given Fuel Quote request.
+After the user requests a Quote they will be directed to this page to input gallonsRequested and
+deliveryDate. After they click submit, suggestedPrice and totalAmountDue will be calculated using the
+pricing module which will not be implemented in assignment 2.
+-->
+<html>
+    <body>
+        <h2> Enter the fuel quote info for Client ??? </h2>
+        <!-- Write some code here that will mention the name of the Client-->
+        
+        <form action="/action_page.php">
+          <label for="fname">How many gallons of fuel do you request?:</label><br>
+          <input type="text" id="fname" name="gallonsRequested" value="0"><br>
+          <label for="lname">When would you like your fuel to be delivered?:</label><br>
+          <input type="text" id="lname" name="deliverydate" value="mm/dd/yyyy"><br><br>
+          <button type="button" onClick = "myFunction()">calculate</button> 
+        </form>
+        
+        <p id="demo1"></p>
+         <p id="demo2"></p>
+    <script>
+      function myFunction() {
+        document.getElementById("demo1").innerHTML = "Suggested Price: "
+        document.getElementById("demo2").innerHTML = "Total Amount Due: "
+      }
+    </script>
+    
+    <input type="submit" value="Submit">
+    <h2><a href="Client.html">Click here to go back to Client page</a></h2>
+    </body>
+</html>
