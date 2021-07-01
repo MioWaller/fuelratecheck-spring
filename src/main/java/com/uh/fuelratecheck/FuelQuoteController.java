@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class FuelQuoteController {
     @GetMapping("/fuelquote")
-	public String history() {
+	public String fuelquote) {
         return "fuelquote";
 	}
 }
