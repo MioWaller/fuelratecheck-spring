@@ -5,14 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <form>
+    <form action="#" th:action="@{/login}" th:object="${login}" method="post">
         <h>Login</h><br>
-        <label for="uname">User name:</label><br>
-        <input type="text" maxlength="50" id="uname" name="uname"><br>
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password"><br>
+        <label>User name:</label><br>
+        <input type="text" maxlength="50" th:field="*{username}" /><br>
+        <label>Password:</label><br>
+        <input type="password" th:field="*{password}" /><br>
+
+        <input type="submit" value="Login" />
     </form>
-        <a href="/fuelquote"><button>Login</button></a>
         <a href="/registration"><button>Register Now</button></a>
 </body>
 </html>
