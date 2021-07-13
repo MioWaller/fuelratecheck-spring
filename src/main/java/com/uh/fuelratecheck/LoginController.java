@@ -19,7 +19,9 @@ public class LoginController {
     public String loginSubmit(@ModelAttribute LoginModel login) {
         if (login.getUsername().equals("mimi") && login.getPassword().equals("mypass")) {
             return "redirect:/fuelhistory";
-        } else {
+        }
+        
+        else {
             return "redirect:/login";
         }
     }
