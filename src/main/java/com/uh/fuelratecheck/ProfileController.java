@@ -9,22 +9,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class ProfileController {
     @GetMapping("/profile")
-	public String profile() {
+	public String profile(Model model) {
         ClientProfileManagement client = new ClientProfileManagement();
+        model.addAttribute("profile", client);
         return "profile";
 	}
 
     @PostMapping("/profile")
     public String setupProfile(@ModelAttribute ClientProfileManagement client) {
 
+        //this method is probably unnecessary, so leaving it blank for now
 
-
-        // if (login.getUsername().equals("mimi") && login.getPassword().equals("mypass")) {
-        //     return "redirect:/fuelhistory";
-        // } else {
-        //     return "redirect:/login";
-        // }
-
-        return 0;
+        return "";
     }
 }
