@@ -1,6 +1,7 @@
 package com.uh.fuelratecheck;
 
-public class LoginModel {
+public class RegistrationModel {
+
     private String username;
     private String password;
 
