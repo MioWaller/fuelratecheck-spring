@@ -8,13 +8,13 @@
     <form action="#" th:action="@{/profile}" th:object="${profile}" method="post">
         <h>Profile</h><br>
         <label>Full Name:</label><br>
-        <input type="text" maxlength="50" id="fullName" th:field="*{fullName}><br>
+        <input type="text" maxlength="50" th:field="*{fullName}" /><br>
         <label> Address1:</label><br>
-        <input type="text" maxlength="100" id="address1" th:field="*{address1}><br>
+        <input type="text" maxlength="100" th:field="*{address1}" /><br>
         <label> Address2:</label><br>
-        <input type="text" maxlength="100" id="address2" nth:field="*{address2}><br>
+        <input type="text" maxlength="1000" th:field="*{address2}" /><br>
         <label> City:</label><br>
-        <input type="text" id="city" th:field="*{city}><br>
+        <input type="text" maxlength="50" th:field="*{city}" /><br>
         <label> State:</label><br>
         <select>
             <option value="AL">AL</option>
@@ -70,8 +70,7 @@
             <option value="WY">WY</option>
         </select><br>			
         <label for="zipcode">Zipcode:</label><br>
-        <input type="text" inputmode="numeric" pattern="[0-9]" id="zipcode" th:field="*{zipcode><br>
-        
+            <input type="text" inputmode="numeric" pattern="[0-9]" maxlength="50" th:field="*{zipcode}" /><br>
     </form>
         <a href="/fuelquote"><button>Go To Fuel Quote </button></a>
 
