@@ -1,6 +1,6 @@
 package com.uh.fuelratecheck;
 
-public class ClientProfileManagement {
+public class ClientProfileManagementModel {
     
     private String fullName;
     private String address1;
@@ -9,10 +9,10 @@ public class ClientProfileManagement {
     private String state;
     private String zipcode;
 
-    public ClientProfileManagement(){
+    public ClientProfileManagementModel(){
         
     }
-    public ClientProfileManagement(String fullName, String address1, String address2, 
+    public ClientProfileManagementModel(String fullName, String address1, String address2, 
                                    String city, String state, String zipcode) {
         this.fullName = fullName;
         this.address1 = address1;
