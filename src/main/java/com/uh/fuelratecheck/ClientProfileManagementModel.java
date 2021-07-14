@@ -9,20 +9,6 @@ public class ClientProfileManagementModel {
     private String state;
     private String zipcode;
 
-    public ClientProfileManagementModel(){
-        
-    }
-    public ClientProfileManagementModel(String fullName, String address1, String address2, 
-                                   String city, String state, String zipcode) {
-        this.fullName = fullName;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.city = city;
-        this.state = state;
-        this.zipcode = zipcode;
-    }
-
-    
 
     public String getFullName() {
         return fullName;
