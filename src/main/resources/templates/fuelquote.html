@@ -10,13 +10,13 @@ pricing module which will not be implemented in assignment 2.
       <h2> Enter the fuel quote info for [Client Name Here] </h2>
       <!-- Write some code here that will mention the name of the Client-->
         
-      <form action="/action_page.php">
+      <form action="/fuelquote" name="fuelquote" method="post">
         <p>Your delivery adress is: [Put Client's Delivery Address Here]</p>
-        <label for="fname">How many gallons of fuel do you request?:</label><br>
-        <input type="text" id="fname" name="gallonsRequested" value="0"><br>
+        <label>How many gallons of fuel do you request?:</label><br>
+        <input type="text" id="gallonsRequested" name="gallonsRequested"><br>
         <label for="lname">When would you like your fuel to be delivered?:</label><br>
         <input type="text" id="lname" name="deliverydate" value="mm/dd/yyyy"><br><br>
-        <button type="button" onClick = "myFunction()">submit</button> 
+        <input type="submit" value="submit" />
       </form>
         
       <p id="demo1"></p>
