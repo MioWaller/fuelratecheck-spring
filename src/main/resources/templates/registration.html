@@ -5,14 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <form action="#" th:action="@{/registration}" th:object="${registration}" method="post">
+    <form>
         <h>Registration</h><br>
-        <label>User name:</label><br>
-        <input type="text" amxlength="50" th:field="*{username}" /><br>
-        <label>Password:</label><br>
-        <input type="password" th:field="*{password}" /><br>
-
-        <input type="submit" value="Register Now" />
+        <label for="uname">User name:</label><br>
+        <input type="text" id="uname" name="uname"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
     </form>
+        <a href="/profile"><button>Register</button></a>
+
 </body>
 </html>
