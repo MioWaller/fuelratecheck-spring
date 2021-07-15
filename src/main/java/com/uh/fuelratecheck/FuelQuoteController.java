@@ -23,7 +23,7 @@ public class FuelQuoteController {
             }
             else
             {
-            return "redirect:/login";
+            return "redirect:/fuelhistory";
             }
         }
 	}
