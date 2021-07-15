@@ -72,8 +72,10 @@
         </select><br>			
         <label for="zipcode">Zipcode:</label><br>
             <input type="text" inputmode="numeric" pattern="[0-9]" maxlength="50" th:field="*{zipcode}" /><br>
+            <input type="submit" value="Profile" />
     </form>
-        <a href="/fuelquote"><button>Go To Fuel Quote </button></a>
+    
+        <!-- Go to fuel quote if input is valid, reload the page if not -->
 
 </body>
 </html>
