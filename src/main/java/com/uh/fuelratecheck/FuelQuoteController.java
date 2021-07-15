@@ -17,9 +17,9 @@ public class FuelQuoteController {
 
     @PostMapping("/fuelquote")
         public String fuelQuoteSubmit(@ModelAttribute FuelQuoteModel fuelquote) {
-            if (fuelquote.getgallonsRequested() == 1)
+            if (fuelquote.getgallonsRequested().equals("invalid") && fuelquote.getdeliveryDate().equals("invalid"))
             {
-            return "redirect:/fuelhistory";
+            return "redirect:/fuelquote";
             }
             else
             {

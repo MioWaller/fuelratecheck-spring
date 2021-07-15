@@ -14,6 +14,9 @@ pricing module which will not be implemented in assignment 2.
         <p>Your delivery adress is: [Put Client's Delivery Address Here]</p>
         <label>How many gallons of fuel do you request?:</label><br>
         <input type="text" th:field="*{gallonsRequested}" /><br>
+        <label>Delivery date:</label><br>
+        <input type="date" th:field="*{deliveryDate}"
+         min="2021-01-01" max="2022-12-31" /><br>
         <input type="submit" value="submit" />
       </form>
       <a href="/profile"><button>Edit Profile</button></a>
