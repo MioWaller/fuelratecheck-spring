@@ -1,16 +1,17 @@
 package com.uh.fuelratecheck;
 
 public class FuelQuoteModel {
-    private String gallonsRequested;
+    private int gallonsRequested;
     private String DeliveryAddress;
     private double SuggestedPrice;
     private double TotalDue;
 
-    public String getGallons() {
+    public int getGallons() {
+        System.out.print(gallonsRequested); //Temporary so I can see what number is being read
         return gallonsRequested;
     }
 
-    public void setGallons(String gallonsRequested) {
+    public void setGallons(int gallonsRequested) {
         this.gallonsRequested = gallonsRequested;
     }
 }
