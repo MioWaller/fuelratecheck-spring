@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
@@ -5,18 +6,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <form>
+    <form action="#" th:action="@{/profile}" th:object="${profile}" method="post">
         <h>Profile</h><br>
-        <label for="fullName">Full Name:</label><br>
-        <input type="text" maxlength="50" id="fullName" name="fullName"><br>
-        <label for="address1">Address1:</label><br>
-        <input type="text" maxlength="100" id="address1" name="address1"><br>
-        <label for="address2">Address2:</label><br>
-        <input type="text" maxlength="100" id="address2" name="address2"><br>
-        <label for="city">City:</label><br>
-        <input type="text" id="city" name="city"><br>
-        <label for="state">State:</label><br>
-        <select>
+        <label>Full Name:</label><br>
+        <input type="text" maxlength="50" th:field="*{fullName}" /><br>
+        <label> Address1:</label><br>
+        <input type="text" maxlength="100" th:field="*{address1}" /><br>
+        <label> Address2:</label><br>
+        <input type="text" maxlength="1000" th:field="*{address2}" /><br>
+        <label> City:</label><br>
+        <input type="text" maxlength="50" th:field="*{city}" /><br>
+        <label> State:</label><br>
+        <select th:field="*{state}">
             <option value="AL">AL</option>
             <option value="AK">AK</option>
             <option value="AZ">AZ</option>
@@ -70,10 +71,11 @@
             <option value="WY">WY</option>
         </select><br>			
         <label for="zipcode">Zipcode:</label><br>
-        <input type="text" inputmode="numeric" pattern="[0-9]" id="zipcode" name="zipcode"><br>
-        
+            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="50" th:field="*{zipcode}" /><br>
+            <input type="submit" value="Submit" />
     </form>
-        <a href="/fuelquote"><button>Go To Fuel Quote </button></a>
+    
+        <!-- Go to fuel quote if input is valid, reload the page if not -->
 
 </body>
 </html>
