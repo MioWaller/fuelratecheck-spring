@@ -13,20 +13,9 @@ pricing module which will not be implemented in assignment 2.
       <form action="#" th:action="@{/fuelquote}" th:object="${fuelquote}" method="post">
         <p>Your delivery adress is: [Put Client's Delivery Address Here]</p>
         <label>How many gallons of fuel do you request?:</label><br>
-        <input type="text" id="gallonsRequested" th:field="*{gallonsRequested}"><br>
-        <label for="lname">When would you like your fuel to be delivered?:</label><br>
-        <input type="text" id="lname" name="deliverydate" value="mm/dd/yyyy"><br><br>
+        <input type="text" th:field="*{gallonsRequested}" /><br>
         <input type="submit" value="submit" />
       </form>
-        
-      <p id="demo1"></p>
-      <p id="demo2"></p>
-      <script>
-        function myFunction() {
-          document.getElementById("demo1").innerHTML = "Suggested Price: "
-          document.getElementById("demo2").innerHTML = "Total Amount Due: "
-        }
-      </script>
       <a href="/profile"><button>Edit Profile</button></a>
       <a href="/fuelhistory"><button>See History</button></a>
     </body>
