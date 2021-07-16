@@ -2,14 +2,20 @@ package com.uh.fuelratecheck;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-class CpmmUnitTester {
+
+@SpringBootTest
+public class ClientProfileManagementModelTests {
 
     @Test
-    void test(){
+    void gettersAndSettersWork() {
         ClientProfileManagementModel myModel = new ClientProfileManagementModel();
+
+        assertThat(myModel).isNotNull();
+
         myModel.setFullName("Akif Ozbilge");
         myModel.setAddress1("2441 South Cayuga Rd.");
         myModel.setAddress2("");
@@ -24,5 +30,6 @@ class CpmmUnitTester {
         assertEquals(myModel.getState(), "NY");
         assertEquals(myModel.getZipcode(), "14221");
 
+        assertThat(myModel.toString()).isNotEmpty();
     }
 }
