@@ -45,6 +45,13 @@ public class LoginControllerTests {
             .param("password", "notpass"))
             .andExpect(status().is3xxRedirection())
             .andExpect(redirectedUrl("/login"));
+
+        mockMvc.perform(post("/login")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("username", "mimi")
+            .param("password", "wrongpassword"))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/login"));
     }
 
     @Test
