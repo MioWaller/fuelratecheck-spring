@@ -38,7 +38,7 @@ public class RegistrationControllerTests {
     }
 
     @Test
-    public void registrationSubmitShouldOpenRegistrationIfLoginFailed() throws Exception {
+    public void registrationSubmitShouldOpenRegistrationIfRegistrationFailed() throws Exception {
         mockMvc.perform(post("/registration")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("username", "")
@@ -55,7 +55,7 @@ public class RegistrationControllerTests {
     }
 
     @Test
-    public void registrationSubmitShouldOpenProfileIfLoginSucceeded() throws Exception {
+    public void registrationSubmitShouldOpenProfileIfRegistrationSucceeded() throws Exception {
         mockMvc.perform(post("/registration")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("username", "mimi")
