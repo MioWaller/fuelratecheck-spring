@@ -1,5 +1,6 @@
 package com.uh.fuelratecheck;
 
+import com.uh.fuelratecheck.HistoryModel;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -13,6 +14,8 @@ public class FuelQuoteModel {
     private String totalPrice;
 
     public String getgallonsRequested() {
+        HistoryModel set = new HistoryModel();
+        set.setgallons(gallonsRequested);
         return gallonsRequested;
     }
 
