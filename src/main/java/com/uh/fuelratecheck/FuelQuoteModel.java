@@ -22,7 +22,7 @@ public class FuelQuoteModel {
             }
         catch(Exception e)
             {
-            gallonsRequested = "invalid";
+            this.gallonsRequested = "invalid";
             }
         this.gallonsRequested = gallonsRequested;
     }
@@ -44,9 +44,10 @@ public class FuelQuoteModel {
             LocalDate.parse(deliveryDate, DateTimeFormatter.ofPattern("uuuu-M-d")
             .withResolverStyle(ResolverStyle.STRICT));
             }
+            
         catch(DateTimeParseException e)
             {
-                deliveryDate="invalid";
+                this.deliveryDate="invalid";
             }
         this.deliveryDate = deliveryDate;
     }
