@@ -17,13 +17,17 @@ public class ProfileController {
 
     @PostMapping("/profile")
     public String profileSubmit(@ModelAttribute ClientProfileManagementModel client) {
-
         //Go to fuel quote if input is valid, reload the page if not
-        if((isNumber(client.getZipcode()) == true) && (client.getAddress1() != "") && (client.getCity() != "")
-            && (client.getFullName() != "") && (client.getState() != "") && (client.getZipcode() != ""))
+        if ((isNumber(client.getZipcode()) == true) &&
+            (client.getAddress1() != "") &&
+            (client.getCity() != "") && 
+            (client.getFullName() != "") && 
+            (client.getState() != "") && 
+            (client.getZipcode() != "")) {
             return "redirect:/fuelquote";
-        else
+        } else {
             return "redirect:/profile";
+        }
         
     }
 
