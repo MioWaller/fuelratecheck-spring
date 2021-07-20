@@ -1,0 +1,83 @@
+package com.uh.fuelratecheck;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class ClientInfoEntity {
+  @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
+  private Integer id;
+
+  private String fullName;
+
+  private String address1;
+
+  private String address2;
+
+  private String city;
+
+  private String state;
+
+  private String zipcode;
+
+
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return fullName;
+  }
+
+  public void setName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public String getAddress1l() {
+    return address1;
+  }
+
+  public void setAddress1l(String address1) {
+    this.address1 = address1;
+  }
+
+  public String getAddress2() {
+    return address2;
+  }
+
+  public void setAddress2(String address2) {
+    this.address2 = address2;
+  }
+
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  } 
+
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  public String getZipcode() {
+    return zipcode;
+  }
+
+  public void setZipcode(String zipcode) {
+    this.zipcode = zipcode;
+  }
+}
