@@ -1,5 +1,6 @@
 package com.uh.fuelratecheck;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ProfileController {
+    @Autowired
+    private ClientInfoRepository clientInfoRepository;
+
+
     @GetMapping("/profile")
 	public String profile(Model model) {
         ClientProfileManagementModel client = new ClientProfileManagementModel();
@@ -26,6 +31,17 @@ public class ProfileController {
             (client.getZipcode() != "")) {
             return "redirect:/fuelquote";
         } else {
+            ClientInfoEntity clientInfoEntity = new ClientInfoEntity();
+            clientInfoEntity.setFullName(client.getFullName());
+            clientInfoEntity.setAddress1(client.getAddress1());
+            clientInfoEntity.setAddress2(client.getAddress2());
+            clientInfoEntity.setCity(client.getCity());
+            clientInfoEntity.setState(client.getState());
+
+            //store the new entity in the repository
+            clientInfoRepository.save(clientInfoEntity);
+
+
             return "redirect:/profile";
         }
         

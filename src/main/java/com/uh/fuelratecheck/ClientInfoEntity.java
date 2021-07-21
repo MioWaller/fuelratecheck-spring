@@ -33,19 +33,19 @@ public class ClientInfoEntity {
     this.id = id;
   }
 
-  public String getName() {
+  public String getFullName() {
     return fullName;
   }
 
-  public void setName(String fullName) {
+  public void setFullName(String fullName) {
     this.fullName = fullName;
   }
 
-  public String getAddress1l() {
+  public String getAddress1()) {
     return address1;
   }
 
-  public void setAddress1l(String address1) {
+  public void setAddress1(String address1) {
     this.address1 = address1;
   }
 
