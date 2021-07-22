@@ -41,7 +41,7 @@ public class ClientInfoEntity {
     this.fullName = fullName;
   }
 
-  public String getAddress1()) {
+  public String getAddress1(){
     return address1;
   }
 
