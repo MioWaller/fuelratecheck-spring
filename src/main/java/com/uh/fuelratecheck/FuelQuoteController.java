@@ -33,7 +33,7 @@ public class FuelQuoteController {
         {
             FuelQuoteEntity n = new FuelQuoteEntity();
             n.setgallonsRequested(gallonsRequested);
-            n.setdeliveryAddress(deliveryDate);
+            n.setdeliveryDate(deliveryDate);
             fuelQuoteRepository.save(n);
             return "redirect:/fuelquote";
         }
