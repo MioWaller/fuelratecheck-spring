@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProfileController {
@@ -21,7 +22,9 @@ public class ProfileController {
 	}
 
     @PostMapping("/profile")
-    public String profileSubmit(@ModelAttribute ClientProfileManagementModel client) {
+    public String profileSubmit(@ModelAttribute ClientProfileManagementModel client, 
+    @RequestParam String fullName, @RequestParam String address1, @RequestParam String address2,
+    @RequestParam String city, @RequestParam String state, @RequestParam String zipcode) {
         //Go to fuel quote if input is valid, reload the page if not
         if ((isNumber(client.getZipcode()) == true) &&
             (client.getAddress1() != "") &&
@@ -32,11 +35,11 @@ public class ProfileController {
             return "redirect:/fuelquote";
         } else {
             ClientInfoEntity clientInfoEntity = new ClientInfoEntity();
-            clientInfoEntity.setFullName(client.getFullName());
-            clientInfoEntity.setAddress1(client.getAddress1());
-            clientInfoEntity.setAddress2(client.getAddress2());
-            clientInfoEntity.setCity(client.getCity());
-            clientInfoEntity.setState(client.getState());
+            clientInfoEntity.setFullName(fullName);
+            clientInfoEntity.setAddress1(address1);
+            clientInfoEntity.setAddress2(address2);
+            clientInfoEntity.setCity(city);
+            clientInfoEntity.setState(state);
 
             //store the new entity in the repository
             clientInfoRepository.save(clientInfoEntity);
