@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HistoryController {
     @GetMapping("/fuelhistory")
     public String history(Model model) {
-        ArrayList<FuelQuoteEntity> quotes = new ArrayList<>();
+        ArrayList<FuelQuoteModel> quotes = new ArrayList<>();
 
         // Sample data
-        FuelQuoteEntity q1 = new FuelQuoteEntity();
+        FuelQuoteModel q1 = new FuelQuoteModel();
         q1.setsuggestedPrice("15");
         q1.setgallonsRequested("1000");
         q1.setdeliveryDate("2021-07-31");
         q1.setdeliveryAddress("My place");
         q1.settotalPrice("15000");
 
-        FuelQuoteEntity q2 = new FuelQuoteEntity();
+        FuelQuoteModel q2 = new FuelQuoteModel();
         q2.setsuggestedPrice("15");
         q2.setgallonsRequested("1000");
         q2.setdeliveryDate("2021-07-31");
         q2.setdeliveryAddress("My place");
         q2.settotalPrice("15000");
 
-        FuelQuoteEntity q3 = new FuelQuoteEntity();
+        FuelQuoteModel q3 = new FuelQuoteModel();
         q3.setsuggestedPrice("15");
         q3.setgallonsRequested("1000");
         q3.setdeliveryDate("2021-07-31");
