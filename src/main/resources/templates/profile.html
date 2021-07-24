@@ -9,15 +9,15 @@
     <form action="#" th:action="@{/profile}" th:object="${profile}" method="post">
         <h>Profile</h><br>
         <label>Full Name:</label><br>
-        <input type="text" maxlength="50" th:field="*{fullName}" /><br>
+        <input type="text" maxlength="50" th:field="*{fullName}" required/><br>
         <label> Address1:</label><br>
-        <input type="text" maxlength="100" th:field="*{address1}" /><br>
+        <input type="text" maxlength="100" th:field="*{address1}" required/><br>
         <label> Address2:</label><br>
-        <input type="text" maxlength="1000" th:field="*{address2}" /><br>
+        <input type="text" maxlength="100" th:field="*{address2}" /><br>
         <label> City:</label><br>
-        <input type="text" maxlength="50" th:field="*{city}" /><br>
+        <input type="text" maxlength="50" th:field="*{city}" required/><br>
         <label> State:</label><br>
-        <select th:field="*{state}">
+        <select th:field="*{state}" required>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
             <option value="AZ">AZ</option>
@@ -71,7 +71,7 @@
             <option value="WY">WY</option>
         </select><br>			
         <label for="zipcode">Zipcode:</label><br>
-            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="50" th:field="*{zipcode}" /><br>
+            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="9" th:field="*{zipcode}" required/><br>
             <input type="submit" value="Submit" />
     </form>
     
