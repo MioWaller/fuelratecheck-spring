@@ -11,7 +11,7 @@ public class FuelQuoteModelTests {
 
     @Test
     void gettersAndSettersWork() {
-        FuelQuoteModel myModel = new FuelQuoteModel();
+        FuelQuoteEntity myModel = new FuelQuoteEntity();
 
         assertThat(myModel).isNotNull();
 
@@ -31,7 +31,7 @@ public class FuelQuoteModelTests {
     
     @Test
     void gettersAndSettersWorkCach() {
-        FuelQuoteModel myModel = new FuelQuoteModel();
+        FuelQuoteEntity myModel = new FuelQuoteEntity();
 
         assertThat(myModel).isNotNull();
         
