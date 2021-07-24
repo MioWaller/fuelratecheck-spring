@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,22 +17,26 @@ public class FuelQuoteController {
 
     @GetMapping("/fuelquote")
         public String fuelquote(Model model) {
-        FuelQuoteModel fuelQuoteModel = new FuelQuoteModel();
+        FuelQuoteEntity fuelQuoteModel = new FuelQuoteEntity();
         model.addAttribute("fuelquote", fuelQuoteModel);
         return "fuelquote";
     }   
 
     @PostMapping("/fuelquote")
-        public @ResponseBody String addNewUser (@ModelAttribute FuelQuoteModel fuelquote, @RequestParam String gallonsRequested
+        public @ResponseBody String addNewUser (@ModelAttribute FuelQuoteEntity fuelquote, @RequestParam String gallonsRequested
       , @RequestParam String deliveryDate) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-
-        FuelQuoteModel n = new FuelQuoteModel();
-        n.setgallonsRequested(gallonsRequested);
-        n.setdeliveryAddress(deliveryDate);
-        fuelQuoteRepository.save(n);
-        return "redirect:/fuelquote";
+        if (fuelquote.getgallonsRequested().equals("invalid") && fuelquote.getdeliveryDate().equals("invalid"))
+        {
+            return "redirect:/fuelquote";
+        }
+        else
+        {
+            FuelQuoteEntity n = new FuelQuoteEntity();
+            n.setgallonsRequested(gallonsRequested);
+            n.setdeliveryAddress(deliveryDate);
+            fuelQuoteRepository.save(n);
+            return "redirect:/fuelquote";
+        }
     }
 
 	}

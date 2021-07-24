@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class FuelQuoteModel {
+public class FuelQuoteEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
