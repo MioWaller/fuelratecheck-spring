@@ -1,9 +1,5 @@
 package com.uh.fuelratecheck;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
