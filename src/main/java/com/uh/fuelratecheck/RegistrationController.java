@@ -1,5 +1,8 @@
 package com.uh.fuelratecheck;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,17 +24,18 @@ public class RegistrationController {
 	}
     
     @PostMapping("/registration")
-    public String registrationSubmit(@ModelAttribute RegistrationModel registration, @RequestParam String username
-    , @RequestParam String password) {
+    public String registrationSubmit(@ModelAttribute RegistrationModel registration,  HttpServletResponse response) {
         if (registration.getUsername().equals("") || registration.getPassword().equals("")) {
             return "redirect:/registration";
-        }
-
-        else {
+        } else {
             ClientEntity n = new ClientEntity();
-            n.setName(username);
-            n.setPassword(password);
+            n.setName(registration.getUsername());
+            n.setPassword(registration.getPassword());
             clientRepository.save(n);
+
+            Cookie cookie = new Cookie("user-id", n.getId().toString());
+            response.addCookie(cookie);
+
             return "redirect:/profile";
         } 
     } 
