@@ -4,11 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.CascadeType;
 
 @Entity
 public class ClientInfoEntity {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
+  @Column(name = "id")
   private Integer id;
 
   private String fullName;
@@ -23,7 +28,8 @@ public class ClientInfoEntity {
 
   private String zipcode;
 
-
+  @OneToOne(mappedBy = "clientInfoEntity")
+  private ClientEntity clientEntity;
 
   public Integer getId() {
     return id;

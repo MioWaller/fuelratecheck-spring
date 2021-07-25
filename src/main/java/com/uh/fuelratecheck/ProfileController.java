@@ -39,7 +39,8 @@ public class ProfileController {
             clientInfoEntity.setAddress2(address2);
             clientInfoEntity.setCity(city);
             clientInfoEntity.setState(state);
-
+            clientInfoEntity.setZipcode(zipcode);
+            
             //store the new entity in the repository
             clientInfoRepository.save(clientInfoEntity);
             return "redirect:/fuelquote";
