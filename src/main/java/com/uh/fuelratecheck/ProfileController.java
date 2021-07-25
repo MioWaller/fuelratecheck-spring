@@ -32,7 +32,8 @@ public class ProfileController {
             (client.getFullName() != "") && 
             (client.getState() != "") && 
             (client.getZipcode() != "")) {
-
+            return "redirect:/fuelquote";
+        } else {
             ClientInfoEntity clientInfoEntity = new ClientInfoEntity();
             clientInfoEntity.setFullName(fullName);
             clientInfoEntity.setAddress1(address1);
@@ -42,9 +43,7 @@ public class ProfileController {
 
             //store the new entity in the repository
             clientInfoRepository.save(clientInfoEntity);
-            return "redirect:/fuelquote";
-        } else {
-            //if the input is invalid, just refresh the page and ask for profile info again
+
 
             return "redirect:/profile";
         }
