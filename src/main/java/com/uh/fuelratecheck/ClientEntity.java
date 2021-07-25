@@ -21,7 +21,7 @@ public class ClientEntity {
 
  //private Integer client_info_entity_id; //this is the foreign key that maps to the primary key of the clientInfoEntity
 
-  @OneToOne(cascade = CascadeType.ALL)
+  @OneToOne(targetEntity = ClientInfoEntity.class, cascade = CascadeType.ALL)
   @JoinColumn(name = "client_info_entity_id", referencedColumnName = "id")
   private ClientInfoEntity clientInfoEntity;
 
