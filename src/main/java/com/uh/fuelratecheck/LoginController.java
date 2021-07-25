@@ -1,5 +1,11 @@
 package com.uh.fuelratecheck;
 
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
+    @Autowired
+    private ClientRepository clientRepository;
+
     @GetMapping("/login")
 	public String login(Model model) {
         LoginModel loginModel = new LoginModel();
@@ -16,14 +25,23 @@ public class LoginController {
 	}
 
     @PostMapping("/login")
-    public String loginSubmit(@ModelAttribute LoginModel login) {
-        if (login.getUsername().equals("mimi") && login.getPassword().equals("mypass")) {
-            return "redirect:/fuelhistory";
-        }
-        
-        else {
+    public String loginSubmit(@ModelAttribute LoginModel login, HttpServletResponse response) {
+        List<ClientEntity> clients = clientRepository.findByUsername(login.getUsername());
+
+        if (clients.isEmpty()) {
             return "redirect:/login";
         }
+
+        ClientEntity client = clients.get(0);
+
+        if (!client.getPassword().equals(login.getPassword())) {
+            return "redirect:/login";
+        }
+
+        Cookie cookie = new Cookie("user-id", client.getId().toString());
+        response.addCookie(cookie);
+
+        return "redirect:/fuelhistory";
     }
 
 }
