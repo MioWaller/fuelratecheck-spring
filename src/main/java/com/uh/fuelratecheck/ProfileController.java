@@ -1,5 +1,11 @@
 package com.uh.fuelratecheck;
 
+import java.util.Arrays;
+import java.util.Optional;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,34 +28,57 @@ public class ProfileController {
 	}
 
     @PostMapping("/profile")
-    public String profileSubmit(@ModelAttribute ClientProfileManagementModel client, 
-    @RequestParam String fullName, @RequestParam String address1, @RequestParam String address2,
-    @RequestParam String city, @RequestParam String state, @RequestParam String zipcode) {
-        //Go to fuel quote if input is valid, reload the page if not
+    public String profileSubmit(HttpServletRequest request, @ModelAttribute ClientProfileManagementModel client) {
+        // Validate the inputs
         if ((isNumber(client.getZipcode()) == true) &&
             (client.getAddress1() != "") &&
             (client.getCity() != "") && 
             (client.getFullName() != "") && 
             (client.getState() != "") && 
             (client.getZipcode() != "")) {
-
-            ClientInfoEntity clientInfoEntity = new ClientInfoEntity();
-            clientInfoEntity.setFullName(fullName);
-            clientInfoEntity.setAddress1(address1);
-            clientInfoEntity.setAddress2(address2);
-            clientInfoEntity.setCity(city);
-            clientInfoEntity.setState(state);
-            clientInfoEntity.setZipcode(zipcode);
-            
-            //store the new entity in the repository
-            clientInfoRepository.save(clientInfoEntity);
-            return "redirect:/fuelquote";
-        } else {
-            //if the input is invalid, just refresh the page and ask for profile info again
-
             return "redirect:/profile";
         }
-        
+
+        // Inputs are good, so lets fetch the cookie
+        Optional<String> userIdCookie = Arrays.stream(request.getCookies())
+            .filter(cookie -> "user-id".equals(cookie.getName()))
+            .map(Cookie::getValue)
+            .findFirst();
+
+        if (!userIdCookie.isPresent()) {
+            // Cookie does not exist. No user is logged in.
+            return "redirect:/login";
+        }
+
+        int userId = 0; // Parse from userIdCookie (I don't know how to do this)
+
+        // Get the client info for the userId from the database.
+        Optional<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findById(userId);
+
+        if (!clientInfoEntity.isPresent()) {
+            // No user with that client id exists, lets create it.
+            ClientInfoEntity newClientInfo = new ClientInfoEntity();
+            newClientInfo.setId(userId);
+            newClientInfo.setFullName(client.getFullName());
+            newClientInfo.setAddress1(client.getAddress1());
+            newClientInfo.setAddress2(client.getAddress2());
+            newClientInfo.setCity(client.getCity());
+            newClientInfo.setState(client.getState());
+
+            clientInfoRepository.save(newClientInfo);
+        } else {
+            // User client info exists, lets update it.
+            clientInfoEntity.get().setFullName(client.getFullName());
+            clientInfoEntity.get().setAddress1(client.getAddress1());
+            clientInfoEntity.get().setAddress2(client.getAddress2());
+            clientInfoEntity.get().setCity(client.getCity());
+            clientInfoEntity.get().setState(client.getState());
+            clientInfoEntity.get().setZipcode(client.getZipcode());
+
+            clientInfoRepository.save(clientInfoEntity.get());
+        }
+
+        return "redirect:/fuelquote";
     }
 
     private boolean isNumber(String str){

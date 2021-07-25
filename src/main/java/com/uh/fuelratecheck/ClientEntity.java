@@ -19,7 +19,7 @@ public class ClientEntity {
 
   private String password;
 
-  private Integer client_info_entity_id; //this is the foreign key that maps to the primary key of the clientInfoEntity
+ //private Integer client_info_entity_id; //this is the foreign key that maps to the primary key of the clientInfoEntity
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "client_info_entity_id", referencedColumnName = "id")
