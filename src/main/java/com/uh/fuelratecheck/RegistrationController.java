@@ -2,6 +2,7 @@ package com.uh.fuelratecheck;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class RegistrationController {
@@ -24,19 +25,28 @@ public class RegistrationController {
 	}
     
     @PostMapping("/registration")
-    public String registrationSubmit(@ModelAttribute RegistrationModel registration,  HttpServletResponse response) {
+    public String registrationSubmit(@ModelAttribute RegistrationModel registration, HttpServletResponse response) {
         if (registration.getUsername().equals("") || registration.getPassword().equals("")) {
             return "redirect:/registration";
-        } else {
-            ClientEntity n = new ClientEntity();
-            n.setName(registration.getUsername());
-            n.setPassword(registration.getPassword());
-            clientRepository.save(n);
+        }
 
-            Cookie cookie = new Cookie("user-id", n.getId().toString());
-            response.addCookie(cookie);
+        List<ClientEntity> clients = clientRepository.findByUsername(registration.getUsername());
 
-            return "redirect:/profile";
-        } 
-    } 
+        if (!clients.isEmpty()) {
+            return "redirect:/registration";
+        }
+
+        ClientEntity n = new ClientEntity();
+        n.setName(registration.getUsername());
+
+        String hash = PasswordEncryption.hash(registration.getPassword());
+
+        n.setPassword(hash);
+        n = clientRepository.save(n);
+
+        Cookie cookie = new Cookie("user-id", n.getId().toString());
+        response.addCookie(cookie);
+
+        return "redirect:/profile";
+    }
 }

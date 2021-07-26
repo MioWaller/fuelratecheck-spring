@@ -36,6 +36,7 @@ public class ProfileController {
             (client.getFullName() != "") && 
             (client.getState() != "") && 
             (client.getZipcode() != "")) {
+<<<<<<< HEAD
             
         }
         else
@@ -77,6 +78,20 @@ public class ProfileController {
             clientInfoEntity.get().setCity(client.getCity());
             clientInfoEntity.get().setState(client.getState());
             clientInfoEntity.get().setZipcode(client.getZipcode());
+=======
+            return "redirect:/fuelquote";
+        } else {
+            ClientInfoEntity clientInfoEntity = new ClientInfoEntity();
+            clientInfoEntity.setFullName(fullName);
+            clientInfoEntity.setAddress1(address1);
+            clientInfoEntity.setAddress2(address2);
+            clientInfoEntity.setCity(city);
+            clientInfoEntity.setState(state);
+
+            //store the new entity in the repository
+            clientInfoRepository.save(clientInfoEntity);
+
+>>>>>>> master
 
             clientInfoRepository.save(clientInfoEntity.get());
         }
