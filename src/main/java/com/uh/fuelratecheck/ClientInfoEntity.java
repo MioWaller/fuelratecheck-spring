@@ -12,8 +12,6 @@ import javax.persistence.CascadeType;
 @Entity
 public class ClientInfoEntity {
   @Id
-  @GeneratedValue(strategy=GenerationType.AUTO)
-  @Column(name = "id")
   private Integer id;
 
   private Integer userid;
@@ -29,9 +27,6 @@ public class ClientInfoEntity {
   private String state;
 
   private String zipcode;
-
-  @OneToOne(mappedBy = "clientInfoEntity")
-  private ClientEntity clientEntity;
 
   public Integer getId() {
     return id;
