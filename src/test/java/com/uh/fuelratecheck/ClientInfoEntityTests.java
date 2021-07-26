@@ -31,5 +31,9 @@ public class ClientInfoEntityTests {
         assertEquals(myEntity.getZipcode(), "14221");
         assertEquals(myEntity.getUserId(), 10);
         assertEquals(myEntity.getId(), 11);
+        assertEquals(myEntity.printAddress(), "Address: " + "2441 South Cayuga Rd."+ "  " + "" +
+        "  City: " + "Buffalo" + 
+        "  State: " + "NY" + 
+        "  Zipcode: " + "14221");
     }
 }
