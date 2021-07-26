@@ -5,7 +5,7 @@ After the user requests a Quote they will be directed to this page to input gall
 deliveryDate. After they click submit, suggestedPrice and totalAmountDue will be calculated using the
 pricing module which will not be implemented in assignment 2.
 -->
-<html xmlns:th="http://www.thymeleaf.org/%22%3E
+<html xmlns:th="http://www.thymeleaf.org/%22%3E"></html>
     <body>
       <h2> Enter the fuel quote info for
       <tbody>
@@ -24,9 +24,9 @@ pricing module which will not be implemented in assignment 2.
     </p>
       <form action="#" th:action="@{/fuelquote}" th:object="${fuelquote}" method="post">
         <label>How many gallons of fuel do you request?:</label><br>
-        <input type="number" th:field="{gallonsRequested}" min="1" required="required"/><br>
+        <input type="number" th:field="*{gallonsRequested}" min="1" required="required"/><br>
         <label>Delivery date:</label><br>
-        <input type="date" th:field="{deliveryDate}" th:attr="min=${now}" max="2022-12-31" required="required"/><br>
+        <input type="date" th:field="*{deliveryDate}" th:attr="min=${now}" max="2022-12-31" required="required"/><br>
         <input type="submit" value="submit" />
       </form>
       <a href="/profile"><button>Edit Profile</button></a>
