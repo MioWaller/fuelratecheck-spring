@@ -67,9 +67,11 @@ public class FuelQuoteController {
         }
             List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
             FuelQuoteEntity n = new FuelQuoteEntity();
+            String getFullAddress = (clientInfoEntity.get(0).getAddress1() + ", " + clientInfoEntity.get(0).getCity()
+            + ", " + clientInfoEntity.get(0).getState() + " " + clientInfoEntity.get(0).getZipcode());
             n.setgallonsRequested(gallonsRequested);
             n.setdeliveryDate(deliveryDate);
-            n.setdeliveryAddress(clientInfoEntity.get(0).getAddress1());
+            n.setdeliveryAddress(getFullAddress);
             n.setUserId(Integer.parseInt(userid));
             fuelQuoteRepository.save(n);
             return "redirect:/fuelquote";
