@@ -92,4 +92,10 @@ public class ClientInfoEntity {
   public void setUserId(Integer userid) {
     this.userid = userid;
 }
+public String printAddress() {
+  return "Address: " + address1 + "  " + address2 +
+          "  City: " + city + 
+          "  State: " + state + 
+          "  Zipcode: " + zipcode;
+}
 }
