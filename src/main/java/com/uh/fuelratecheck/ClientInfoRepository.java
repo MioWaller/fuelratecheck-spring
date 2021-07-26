@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ClientInfoRepository extends CrudRepository<ClientInfoEntity, Integer> {
     
-    List<ClientInfoRepository> findByUserid(Integer userid);
+    List<ClientInfoEntity> findByUserid(Integer userid);
 }

@@ -2,6 +2,7 @@ package com.uh.fuelratecheck;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -57,15 +58,14 @@ public class ProfileController {
             return "redirect:/login";
         }
 
-        int userId = 0; // Parse from userIdCookie (I don't know how to do this)
 
         // Get the client info for the userId from the database.
-        Optional<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findById(userId);
+        Optional<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
 
         if (!clientInfoEntity.isPresent()) {
             // No user with that client id exists, lets create it.
             ClientInfoEntity newClientInfo = new ClientInfoEntity();
-            newClientInfo.setId(userId);
+            // newClientInfo.setId(userId);
             newClientInfo.setFullName(client.getFullName());
             newClientInfo.setAddress1(client.getAddress1());
             newClientInfo.setAddress2(client.getAddress2());
