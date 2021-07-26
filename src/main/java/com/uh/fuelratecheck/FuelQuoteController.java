@@ -3,13 +3,9 @@ package com.uh.fuelratecheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import javax.servlet.http.*;
 
 @Controller
 public class FuelQuoteController {
@@ -24,13 +20,15 @@ public class FuelQuoteController {
         model.addAttribute("fuelquote", fuelQuoteModel);
         return "fuelquote";
     }   
-
     @PostMapping("/fuelquote")
         public @ResponseBody String addNewUser (@ModelAttribute FuelQuoteEntity fuelquote, @RequestParam String gallonsRequested
-      , @RequestParam String deliveryDate) {
+      , @RequestParam String deliveryDate, HttpServletRequest request) {
+            Cookie cookie[] = request.getCookies();
+            String userid = cookie[0].getValue();
             FuelQuoteEntity n = new FuelQuoteEntity();
             n.setgallonsRequested(gallonsRequested);
             n.setdeliveryDate(deliveryDate);
+            n.setUserId(Integer.parseInt(userid));
             fuelQuoteRepository.save(n);
             return "redirect:/fuelquote";
     }
