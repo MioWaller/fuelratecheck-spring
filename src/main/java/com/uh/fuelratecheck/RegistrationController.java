@@ -33,7 +33,10 @@ public class RegistrationController {
         } else {
             ClientEntity n = new ClientEntity();
             n.setName(registration.getUsername());
-            n.setPassword(registration.getPassword());
+
+            String hash = PasswordEncryption.hash(registration.getPassword());
+
+            n.setPassword(hash);
             clientRepository.save(n);
 
             Cookie cookie = new Cookie("user-id", n.getId().toString());
