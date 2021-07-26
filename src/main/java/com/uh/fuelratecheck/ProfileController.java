@@ -46,9 +46,6 @@ public class ProfileController {
 
         //get cookies to find out which user is editing their client info
         Cookie cookie1[] = request.getCookies();
-<<<<<<< HEAD
-        String userid = cookie1[0].getValue();
-=======
         String userid="";
         for(int i=0; i<cookie1.length; i++) {
             userid = cookie1[i].getValue();
@@ -64,7 +61,6 @@ public class ProfileController {
                 break;
             }
         }
->>>>>>> master
 
 
         // Inputs are good, so lets fetch the cookie
@@ -76,7 +72,6 @@ public class ProfileController {
         if (!userIdCookie.isPresent()) {
             // Cookie does not exist. No user is logged in.
             return "redirect:/login";
-<<<<<<< HEAD
         }
 
 
@@ -108,39 +103,6 @@ public class ProfileController {
             clientInfoRepository.save(clientInfoEntity.get(0));
         }
 
-=======
-        }
-
-
-        // Get the client info for the userId from the database.
-        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
-
-        if (clientInfoEntity.isEmpty()) {
-            // No user with that client id exists, lets create it.
-            ClientInfoEntity newClientInfo = new ClientInfoEntity();
-
-            newClientInfo.setFullName(client.getFullName());
-            newClientInfo.setAddress1(client.getAddress1());
-            newClientInfo.setAddress2(client.getAddress2());
-            newClientInfo.setCity(client.getCity());
-            newClientInfo.setState(client.getState());
-            newClientInfo.setZipcode(client.getZipcode());
-            newClientInfo.setUserId(Integer.parseInt(userid));
-
-            clientInfoRepository.save(newClientInfo);
-        } else {
-            // User client info exists, lets update it.
-            clientInfoEntity.get(0).setFullName(client.getFullName());
-            clientInfoEntity.get(0).setAddress1(client.getAddress1());
-            clientInfoEntity.get(0).setAddress2(client.getAddress2());
-            clientInfoEntity.get(0).setCity(client.getCity());
-            clientInfoEntity.get(0).setState(client.getState());
-            clientInfoEntity.get(0).setZipcode(client.getZipcode());
-
-            clientInfoRepository.save(clientInfoEntity.get(0));
-        }
-
->>>>>>> master
         return "redirect:/fuelquote";
     }
 
