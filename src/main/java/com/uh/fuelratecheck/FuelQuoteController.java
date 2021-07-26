@@ -1,5 +1,5 @@
 package com.uh.fuelratecheck;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,11 +16,34 @@ public class FuelQuoteController {
     private ClientInfoRepository clientInfoRepository;
 
     @GetMapping("/fuelquote")
-        public String fuelquote(Model model) {
+        public String fuelquote(Model model, HttpServletRequest request) {
         LocalDate now = LocalDate.now();
         model.addAttribute("now", now);
         FuelQuoteEntity fuelQuoteModel = new FuelQuoteEntity();
         model.addAttribute("fuelquote", fuelQuoteModel);
+        
+        //get cookies to find out which user is editing their client info
+        Cookie cookie1[] = request.getCookies();
+        String userid="";
+        for(int i=0; i<cookie1.length; i++) {
+            userid = cookie1[i].getValue();
+            try{
+                Integer.parseInt(userid);
+            }
+            catch(NumberFormatException e)
+            {
+                userid=null;
+            }
+            if(userid != null)
+            {
+                break;
+            }
+        }
+        // Get the client info for the userId from the database.
+        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
+
+        model.addAttribute("entities", clientInfoEntity);
+
         return "fuelquote";
     }   
     @PostMapping("/fuelquote")

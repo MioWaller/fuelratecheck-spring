@@ -20,7 +20,6 @@ public class ProfileController {
     @Autowired
     private ClientInfoRepository clientInfoRepository;
 
-
     @GetMapping("/profile")
 	public String profile(Model model) {
         ClientProfileManagementModel client = new ClientProfileManagementModel();
