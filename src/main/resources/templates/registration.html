@@ -8,9 +8,9 @@
     <form action="#" th:action="@{/registration}" th:object="${registration}" method="post">
         <h>Registration</h><br>
         <label>User name:</label><br>
-        <input type="text" amxlength="50" th:field="*{username}" /><br>
+        <input type="text" amxlength="50" th:field="*{username}" required="required" /><br>
         <label>Password:</label><br>
-        <input type="password" th:field="*{password}" /><br>
+        <input type="password" th:field="*{password}" required="required" /><br>
 
         <input type="submit" value="Register" />
     </form>
