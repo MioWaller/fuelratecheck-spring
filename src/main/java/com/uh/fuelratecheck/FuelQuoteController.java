@@ -23,8 +23,22 @@ public class FuelQuoteController {
     @PostMapping("/fuelquote")
         public @ResponseBody String addNewUser (@ModelAttribute FuelQuoteEntity fuelquote, @RequestParam String gallonsRequested
       , @RequestParam String deliveryDate, HttpServletRequest request) {
-            Cookie cookie[] = request.getCookies();
-            String userid = cookie[0].getValue();
+        Cookie cookie[] = request.getCookies();
+        String userid="";
+        for(int i=0; i<cookie.length; i++) {
+            userid = cookie[i].getValue();
+            try{
+                Integer.parseInt(userid);
+            }
+            catch(NumberFormatException e)
+            {
+                userid=null;
+            }
+            if(userid != null)
+            {
+                break;
+            }
+        }
             FuelQuoteEntity n = new FuelQuoteEntity();
             n.setgallonsRequested(gallonsRequested);
             n.setdeliveryDate(deliveryDate);
