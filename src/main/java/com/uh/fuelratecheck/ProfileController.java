@@ -60,9 +60,9 @@ public class ProfileController {
 
 
         // Get the client info for the userId from the database.
-        Optional<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
+        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
 
-        if (!clientInfoEntity.isPresent()) {
+        if (clientInfoEntity.isEmpty()) {
             // No user with that client id exists, lets create it.
             ClientInfoEntity newClientInfo = new ClientInfoEntity();
             // newClientInfo.setId(userId);
@@ -77,14 +77,14 @@ public class ProfileController {
             clientInfoRepository.save(newClientInfo);
         } else {
             // User client info exists, lets update it.
-            clientInfoEntity.get().setFullName(client.getFullName());
-            clientInfoEntity.get().setAddress1(client.getAddress1());
-            clientInfoEntity.get().setAddress2(client.getAddress2());
-            clientInfoEntity.get().setCity(client.getCity());
-            clientInfoEntity.get().setState(client.getState());
-            clientInfoEntity.get().setZipcode(client.getZipcode());
+            clientInfoEntity.get(0).setFullName(client.getFullName());
+            clientInfoEntity.get(0).setAddress1(client.getAddress1());
+            clientInfoEntity.get(0).setAddress2(client.getAddress2());
+            clientInfoEntity.get(0).setCity(client.getCity());
+            clientInfoEntity.get(0).setState(client.getState());
+            clientInfoEntity.get(0).setZipcode(client.getZipcode());
 
-            clientInfoRepository.save(clientInfoEntity.get());
+            clientInfoRepository.save(clientInfoEntity.get(0));
         }
 
         return "redirect:/fuelquote";
