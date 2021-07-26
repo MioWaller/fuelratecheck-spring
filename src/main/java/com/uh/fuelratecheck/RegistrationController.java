@@ -2,6 +2,7 @@ package com.uh.fuelratecheck;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,10 @@ public class RegistrationController {
 	}
     
     @PostMapping("/registration")
-    public String registrationSubmit(@ModelAttribute RegistrationModel registration,  HttpServletResponse response) {
-        if (registration.getUsername().equals("") || registration.getPassword().equals("")) {
+    public String registrationSubmit(@ModelAttribute RegistrationModel registration, HttpServletResponse response) {
+        List<ClientEntity> clients = clientRepository.findByUsername(registration.getUsername());
+        if(!clients.isEmpty()) //It will be empty if the username is unused
+        {
             return "redirect:/registration";
         } else {
             ClientEntity n = new ClientEntity();
@@ -38,5 +41,5 @@ public class RegistrationController {
 
             return "redirect:/profile";
         } 
-    } 
+    }
 }
