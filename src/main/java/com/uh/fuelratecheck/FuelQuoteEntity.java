@@ -1,15 +1,13 @@
 package com.uh.fuelratecheck;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class FuelQuoteEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+    private Integer userid;
     private String gallonsRequested;
     private String deliveryAddress;
     private String deliveryDate;
@@ -62,5 +60,13 @@ public class FuelQuoteEntity {
 
     public void settotalPrice(String totalPrice){
         this.totalPrice = totalPrice;
+    }
+
+    public Integer getUserId() {
+        return userid;
+    }
+    
+      public void setUserId(Integer userid) {
+        this.userid = userid;
     }
 }
