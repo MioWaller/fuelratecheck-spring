@@ -26,23 +26,27 @@ public class RegistrationController {
     
     @PostMapping("/registration")
     public String registrationSubmit(@ModelAttribute RegistrationModel registration, HttpServletResponse response) {
-        List<ClientEntity> clients = clientRepository.findByUsername(registration.getUsername());
-        if(!clients.isEmpty()) //It will be empty if the username is unused
-        {
+        if (registration.getUsername().equals("") || registration.getPassword().equals("")) {
             return "redirect:/registration";
-        } else {
-            ClientEntity n = new ClientEntity();
-            n.setName(registration.getUsername());
+        }
 
-            String hash = PasswordEncryption.hash(registration.getPassword());
+        List<ClientEntity> clients = clientRepository.findByUsername(registration.getUsername());
 
-            n.setPassword(hash);
-            clientRepository.save(n);
+        if (!clients.isEmpty()) {
+            return "redirect:/registration";
+        }
 
-            Cookie cookie = new Cookie("user-id", n.getId().toString());
-            response.addCookie(cookie);
+        ClientEntity n = new ClientEntity();
+        n.setName(registration.getUsername());
 
-            return "redirect:/profile";
-        } 
+        String hash = PasswordEncryption.hash(registration.getPassword());
+
+        n.setPassword(hash);
+        n = clientRepository.save(n);
+
+        Cookie cookie = new Cookie("user-id", n.getId().toString());
+        response.addCookie(cookie);
+
+        return "redirect:/profile";
     }
 }
