@@ -34,7 +34,9 @@ public class LoginController {
 
         ClientEntity client = clients.get(0);
 
-        if (!client.getPassword().equals(login.getPassword())) {
+        String hash = PasswordEncryption.hash(login.getPassword());
+
+        if (!client.getPassword().equals(hash)) {
             return "redirect:/login";
         }
 
