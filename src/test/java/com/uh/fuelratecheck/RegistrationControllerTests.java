@@ -3,7 +3,8 @@ package com.uh.fuelratecheck;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import static org.hamcrest.Matchers.containsString;
-
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -13,10 +14,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest
+@WebMvcTest(RegistrationController.class)
 public class RegistrationControllerTests {
     
     @Autowired
@@ -24,6 +26,9 @@ public class RegistrationControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private ClientRepository clientRepository;
 
     @Test
     public void contextLoads() {
@@ -56,6 +61,13 @@ public class RegistrationControllerTests {
 
     @Test
     public void registrationSubmitShouldOpenProfileIfRegistrationSucceeded() throws Exception {
+        when(clientRepository.save(any()))
+            .thenAnswer(i -> {
+                ClientEntity e = i.getArgument(0);
+                e.setId(1);
+                return e;
+            });
+
         mockMvc.perform(post("/registration")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("username", "mimi")
