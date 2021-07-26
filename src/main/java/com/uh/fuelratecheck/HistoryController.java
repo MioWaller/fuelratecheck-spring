@@ -14,7 +14,21 @@ public class HistoryController {
 
     public String history(Model model, HttpServletRequest request) {
         Cookie cookie[] = request.getCookies();
-        String userid = cookie[0].getValue();
+        String userid="";
+        for(int i=0; i<cookie.length; i++) {
+            userid = cookie[i].getValue();
+            try{
+                Integer.parseInt(userid);
+            }
+            catch(NumberFormatException e)
+            {
+                userid=null;
+            }
+            if(userid != null)
+            {
+                break;
+            }
+        }
         model.addAttribute("quotes", fuelQuoteRepository.findByUserid(Integer.parseInt(userid)));
         return "fuelhistory";
     }
