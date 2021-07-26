@@ -30,19 +30,21 @@ public class ProfileController {
 
     @PostMapping("/profile")
     public String profileSubmit(HttpServletRequest request, @ModelAttribute ClientProfileManagementModel client) {
-        // Validate the inputs
-        if ((isNumber(client.getZipcode()) == true) &&
-            (client.getAddress1() != "") &&
-            (client.getCity() != "") && 
-            (client.getFullName() != "") && 
-            (client.getState() != "") && 
-            (client.getZipcode() != "")) {
-            
+        // Validate the inputs, if invalid refresh profile page
+
+        if((isNumber(client.getZipcode()) == true && client.getZipcode().length() > 4 &&
+              client.getZipcode().length() < 10) &&
+              (client.getAddress1() != "" && client.getAddress1().length() <= 100) &&
+               (client.getCity() != "" && client.getCity().length() <= 100 &&
+               (client.getState() != "" && client.getState().length() == 2) &&
+               (client.getFullName() != "" && client.getFullName().length() <= 50)))
+        {
+            //do nothing
         }
         else
             return "redirect:/profile";
 
-
+        //get cookies to find out which user is editing their client info
         Cookie cookie1[] = request.getCookies();
         String userid = cookie1[0].getValue();
 
@@ -65,7 +67,7 @@ public class ProfileController {
         if (clientInfoEntity.isEmpty()) {
             // No user with that client id exists, lets create it.
             ClientInfoEntity newClientInfo = new ClientInfoEntity();
-            // newClientInfo.setId(userId);
+
             newClientInfo.setFullName(client.getFullName());
             newClientInfo.setAddress1(client.getAddress1());
             newClientInfo.setAddress2(client.getAddress2());
@@ -92,14 +94,12 @@ public class ProfileController {
 
     private boolean isNumber(String str){
         boolean flag = true;
-
         for(int i = 0; i < str.length(); i++){
             if(Character.isDigit(str.charAt(i)) == false){
                 flag = false;
                 break;
             }
         }
-
         return flag;
     }
 }
