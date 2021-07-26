@@ -41,6 +41,11 @@ public class ProfileController {
         else
             return "redirect:/profile";
 
+
+        Cookie cookie1[] = request.getCookies();
+        String userid = cookie1[0].getValue();
+
+
         // Inputs are good, so lets fetch the cookie
         Optional<String> userIdCookie = Arrays.stream(request.getCookies())
             .filter(cookie -> "user-id".equals(cookie.getName()))
@@ -67,6 +72,7 @@ public class ProfileController {
             newClientInfo.setCity(client.getCity());
             newClientInfo.setState(client.getState());
             newClientInfo.setZipcode(client.getZipcode());
+            newClientInfo.setUserId(Integer.parseInt(userid));
 
             clientInfoRepository.save(newClientInfo);
         } else {

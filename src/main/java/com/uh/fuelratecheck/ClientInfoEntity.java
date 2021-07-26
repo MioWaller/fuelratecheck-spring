@@ -16,6 +16,8 @@ public class ClientInfoEntity {
   @Column(name = "id")
   private Integer id;
 
+  private Integer userid;
+
   private String fullName;
 
   private String address1;
@@ -86,4 +88,12 @@ public class ClientInfoEntity {
   public void setZipcode(String zipcode) {
     this.zipcode = zipcode;
   }
+
+  public Integer getUserId() {
+    return userid;
+}
+
+  public void setUserId(Integer userid) {
+    this.userid = userid;
+}
 }
