@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 @Entity
 public class ClientInfoEntity {
   @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
 
   private Integer userid;

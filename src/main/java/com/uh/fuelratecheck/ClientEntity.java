@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 public class ClientEntity {
   @Id
+  @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
 
   private String username;
