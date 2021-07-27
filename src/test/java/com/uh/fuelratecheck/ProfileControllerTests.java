@@ -25,6 +25,8 @@ public class ProfileControllerTests {
     @Autowired
     private MockMvc mockMvc;
 
+    
+
     @Test
     public void contextLoads() {
         assertThat(controller).isNotNull();
