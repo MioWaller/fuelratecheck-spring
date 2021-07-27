@@ -53,8 +53,8 @@ public class FuelQuoteControllerTests {
 
     @Test
     public void fuelquoteSubmitShouldOpenfuelquoteIffuelquoteSucceeded() throws Exception {
-        Cookie cookie = new Cookie("user-id", "1");
-
+        Cookie cookie = new Cookie("user-id", "a");
+        Cookie cookie1 = new Cookie("user-id", "1");
         ClientInfoEntity info = new ClientInfoEntity();
         info.setId(1);
         info.setUserId(2);
@@ -70,6 +70,7 @@ public class FuelQuoteControllerTests {
     
         mockMvc.perform(post("/fuelquote")
             .cookie(cookie)
+            .cookie(cookie1)
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("gallonsRequested", "invalid")
             .param("deliveryDate", "invalid"))
