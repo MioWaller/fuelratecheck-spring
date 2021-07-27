@@ -31,17 +31,31 @@ public class ProfileController {
     public String profileSubmit(HttpServletRequest request, @ModelAttribute ClientProfileManagementModel client) {
         // Validate the inputs, if invalid refresh profile page
 
-        if((isNumber(client.getZipcode()) == true && client.getZipcode().length() > 4 &&
-              client.getZipcode().length() < 10) &&
-              (client.getAddress1() != "" && client.getAddress1().length() <= 100) &&
-               (client.getCity() != "" && client.getCity().length() <= 100 &&
-               (client.getState() != "" && client.getState().length() == 2) &&
-               (client.getFullName() != "" && client.getFullName().length() <= 50)))
+        if (client.getZipcode().length() < 5 ||
+            client.getZipcode().length() > 9 ||
+            !isNumber(client.getZipcode()) ||
+            client.getAddress1() == "" || 
+            client.getAddress1().length() > 100 ||
+            client.getCity() == "" ||
+            client.getCity().length() > 100 ||
+            client.getState() == "" ||
+            client.getState().length() != 2 ||
+            client.getFullName() != "" || 
+            client.getFullName().length() > 50)
         {
-            //do nothing
-        }
-        else
             return "redirect:/profile";
+        }
+
+        // Inputs are good, so lets fetch the cookie
+        Optional<String> userIdCookie = Arrays.stream(request.getCookies())
+            .filter(cookie -> "user-id".equals(cookie.getName()))
+            .map(Cookie::getValue)
+            .findFirst();
+
+        if (!userIdCookie.isPresent()) {
+            // Cookie does not exist. No user is logged in.
+            return "redirect:/login";
+        }
 
         //get cookies to find out which user is editing their client info
         Cookie cookie1[] = request.getCookies();
@@ -60,19 +74,6 @@ public class ProfileController {
                 break;
             }
         }
-
-
-        // Inputs are good, so lets fetch the cookie
-        Optional<String> userIdCookie = Arrays.stream(request.getCookies())
-            .filter(cookie -> "user-id".equals(cookie.getName()))
-            .map(Cookie::getValue)
-            .findFirst();
-
-        if (!userIdCookie.isPresent()) {
-            // Cookie does not exist. No user is logged in.
-            return "redirect:/login";
-        }
-
 
         // Get the client info for the userId from the database.
         List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));

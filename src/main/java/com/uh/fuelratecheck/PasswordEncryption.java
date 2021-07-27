@@ -6,7 +6,11 @@ import java.util.Base64;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-public class PasswordEncryption {
+public final class PasswordEncryption {
+
+    private PasswordEncryption() {
+
+    }
 
     public static String hash(String password) {
         try {
