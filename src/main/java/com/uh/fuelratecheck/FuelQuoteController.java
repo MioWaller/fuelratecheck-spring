@@ -21,29 +21,6 @@ public class FuelQuoteController {
         model.addAttribute("now", now);
         FuelQuoteEntity fuelQuoteModel = new FuelQuoteEntity();
         model.addAttribute("fuelquote", fuelQuoteModel);
-        
-        //get cookies to find out which user is editing their client info
-        Cookie cookie1[] = request.getCookies();
-        String userid="";
-        for(int i=0; i<cookie1.length; i++) {
-            userid = cookie1[i].getValue();
-            try{
-                Integer.parseInt(userid);
-            }
-            catch(NumberFormatException e)
-            {
-                userid=null;
-            }
-            if(userid != null)
-            {
-                break;
-            }
-        }
-        // Get the client info for the userId from the database.
-        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
-
-        model.addAttribute("entities", clientInfoEntity);
-
         return "fuelquote";
     }   
     @PostMapping("/fuelquote")
