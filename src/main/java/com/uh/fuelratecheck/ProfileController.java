@@ -40,7 +40,7 @@ public class ProfileController {
             client.getCity().length() > 100 ||
             client.getState() == "" ||
             client.getState().length() != 2 ||
-            client.getFullName() != "" || 
+            client.getFullName() == "" || 
             client.getFullName().length() > 50)
         {
             return "redirect:/profile";
