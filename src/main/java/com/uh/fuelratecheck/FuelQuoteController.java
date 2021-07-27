@@ -24,7 +24,7 @@ public class FuelQuoteController {
         return "fuelquote";
     }   
     @PostMapping("/fuelquote")
-        public @ResponseBody String addNewUser (@ModelAttribute FuelQuoteEntity fuelquote, @RequestParam String gallonsRequested
+        public String addNewUser (@ModelAttribute FuelQuoteEntity fuelquote, @RequestParam String gallonsRequested
       , @RequestParam String deliveryDate, HttpServletRequest request) {
         Cookie cookie[] = request.getCookies();
         String userid="";
