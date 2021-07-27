@@ -1,7 +1,8 @@
 package com.uh.fuelratecheck;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.containsString;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -13,10 +14,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+
+@WebMvcTest(FuelQuoteController.class)
 public class FuelQuoteControllerTests {
     
     @Autowired
@@ -24,6 +32,12 @@ public class FuelQuoteControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private FuelQuoteRepository fuelQuoteRepository;
+    
+    @MockBean
+    private ClientInfoRepository clientInfoRepository;
 
     @Test
     public void contextLoads() {
@@ -34,29 +48,28 @@ public class FuelQuoteControllerTests {
     public void fuelQuoteShouldReturnCorrectTemplate() throws Exception {
         mockMvc.perform(get("/fuelquote"))
             .andExpect(status().isOk())
-            .andExpect(content().string(containsString("How many gallons of fuel do you request?")));
-    }
-
-    @Test
-    public void fuelquoteSubmitShouldOpenFuelHistoryIffuelquoteFailed() throws Exception {
-        mockMvc.perform(post("/fuelquote")
-            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .param("gallonsRequested", "wrong")
-            .param("deliveryDate", "wrong"))
-            .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("/fuelhistory"));
-
-        mockMvc.perform(post("/fuelquote")
-            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .param("gallonsRequested", "invalid")
-            .param("deliveryDate", "wrong"))
-            .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("/fuelhistory"));
+            .andExpect(content().string(containsString("Enter the fuel quote info for")));
     }
 
     @Test
     public void fuelquoteSubmitShouldOpenfuelquoteIffuelquoteSucceeded() throws Exception {
+        Cookie cookie = new Cookie("user-id", "1");
+
+        ClientInfoEntity info = new ClientInfoEntity();
+        info.setId(1);
+        info.setUserId(2);
+        info.setFullName("Group11");
+        info.setAddress1("Address1");
+        info.setCity("Houston");
+        info.setState("TX");
+        info.setZipcode("00000");
+        List<ClientInfoEntity> client = new ArrayList<>();
+        client.add(info);
+
+        when(clientInfoRepository.findByUserid(anyInt())).thenReturn(client);
+    
         mockMvc.perform(post("/fuelquote")
+            .cookie(cookie)
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
             .param("gallonsRequested", "invalid")
             .param("deliveryDate", "invalid"))
@@ -64,4 +77,3 @@ public class FuelQuoteControllerTests {
             .andExpect(redirectedUrl("/fuelquote"));
     }
 }
-
