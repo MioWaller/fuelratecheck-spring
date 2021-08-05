@@ -28,6 +28,7 @@ pricing module which will not be implemented in assignment 2.
         <label>Delivery date:</label><br>
         <input type="date" th:field="*{deliveryDate}" th:attr="min=${now}" max="2022-12-31" required="required"/><br>
         <input type="submit" value="submit" />
+        <input type="submit" value="Get Quote" />
       </form>
       <a href="/profile"><button>Edit Profile</button></a>
       <a href="/fuelhistory"><button>See History</button></a>
