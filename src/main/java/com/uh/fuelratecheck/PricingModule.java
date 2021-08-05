@@ -1,36 +1,46 @@
 package com.uh.fuelratecheck;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.stereotype.*;
 
+@Component
 public class PricingModule {
     @Autowired
-    private static ClientInfoRepository clientInfoRepository;
+	private FuelQuoteRepository fuelQuoteRepository;
 
-    public static double calculateSuggestedPrice(String userid, double gallonsRequested){
-        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
+    String state;
+    String gallonsrequested;
+    double locationFactor;
+    double rateHistoryFactor;
+    double gallonsRequestedFactor;
+    double companyProfitFactor = .1;
+    double suggestedPrice;
+    double totalPrice;
+    String userid;
 
-        //loc true means in state, out otherwise
-        double locationFactor = 0.04;
-        final double companyProfitFactor = 0.1;
-        double gallonsRequestedFactor = 0.03;
-
-        if(clientInfoEntity.get(0).getState() == "TX")
-            locationFactor = 0.02;
-        if(gallonsRequested > 1000)
-            gallonsRequestedFactor = 0.02;
-
-        return 0;
+    public double historycheck()
+    {
+        List<FuelQuoteEntity> history = fuelQuoteRepository.findByUserid(Integer.parseInt(userid));  
+        if (history.isEmpty())
+        {
+            rateHistoryFactor = 0;
+        }
+        else
+        {
+            rateHistoryFactor = .01;
+        }
+        return rateHistoryFactor;
     }
 
-    public static double calculateTotalPrice(){
-        
-        return 0;
+    
+    public double calculateSuggestedPrice(){
+        historycheck();
+        return suggestedPrice;
+    }
+
+    public double calculateTotalPrice(){
+        calculateSuggestedPrice();
+        return totalPrice;
     }
 
 }
