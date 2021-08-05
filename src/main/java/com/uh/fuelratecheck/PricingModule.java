@@ -7,6 +7,8 @@ import org.springframework.stereotype.*;
 public class PricingModule {
     @Autowired
 	private FuelQuoteRepository fuelQuoteRepository;
+    @Autowired
+	private ClientInfoRepository clientInfoRepository;
 
     String state;
     String gallonsrequested;
@@ -35,6 +37,27 @@ public class PricingModule {
     
     public double calculateSuggestedPrice(){
         historycheck();
+        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
+        state = clientInfoEntity.get(0).getState();
+        if(Integer.parseInt(gallonsrequested) > 1000)
+        {
+            gallonsRequestedFactor = .02;
+        }
+        else
+        {
+            gallonsRequestedFactor = .03;
+        }
+        if(state.equals("TX"))
+        {
+            locationFactor = .02;
+        }
+        else
+        {
+            locationFactor = .04;
+        }
+        double margin = (gallonsRequestedFactor - rateHistoryFactor + locationFactor + companyProfitFactor) * 1.50;
+        suggestedPrice = 1.50 + margin;
+
         return suggestedPrice;
     }
 
