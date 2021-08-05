@@ -20,6 +20,14 @@ public class PricingModule {
     double totalPrice;
     String userid;
 
+    public void setgallonsRequested(String gallonsrequested) {
+        this.gallonsrequested = gallonsrequested;
+    }
+    
+    public void setuserid(String userid) {
+        this.userid = userid;
+    }
+
     public double historycheck()
     {
         List<FuelQuoteEntity> history = fuelQuoteRepository.findByUserid(Integer.parseInt(userid));  
@@ -63,6 +71,7 @@ public class PricingModule {
 
     public double calculateTotalPrice(){
         calculateSuggestedPrice();
+        totalPrice = Integer.parseInt(gallonsrequested) * suggestedPrice;
         return totalPrice;
     }
 
