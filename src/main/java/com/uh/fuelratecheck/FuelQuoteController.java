@@ -6,14 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import javax.servlet.http.*;
-import java.util.List;
 
 @Controller
 public class FuelQuoteController {
     @Autowired
-	private FuelQuoteRepository fuelQuoteRepository;
+    private FuelQuoteRepository fuelQuoteRepository;
     @Autowired
     private ClientInfoRepository clientInfoRepository;
+    @Autowired
+    PricingModule m = new PricingModule();
 
     @GetMapping("/fuelquote")
         public String fuelquote(Model model, HttpServletRequest request) {
@@ -65,6 +66,10 @@ public class FuelQuoteController {
                 break;
             }
         }
+
+            m.setgallonsRequested(gallonsRequested);
+            m.setuserid(userid);
+
             List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
             FuelQuoteEntity n = new FuelQuoteEntity();
             String getFullAddress = (clientInfoEntity.get(0).getAddress1() + ", " + clientInfoEntity.get(0).getCity()
@@ -73,8 +78,10 @@ public class FuelQuoteController {
             n.setdeliveryDate(deliveryDate);
             n.setdeliveryAddress(getFullAddress);
             n.setUserId(Integer.parseInt(userid));
+            n.setsuggestedPrice(String.valueOf(m.calculateSuggestedPrice()));
+            n.settotalPrice(String.valueOf(m.calculateTotalPrice()));
             fuelQuoteRepository.save(n);
             return "redirect:/fuelquote";
     }
 
-	}
+}
