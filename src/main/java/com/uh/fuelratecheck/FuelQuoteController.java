@@ -117,15 +117,25 @@ public class FuelQuoteController {
             }
         }
 
-        // TODO: Validate the inputs
-        // Check the date, # of gallons requested
-        // Copy form parameters to database entity
-        // Save.
+        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
+
+        model.addAttribute("entities", clientInfoEntity);
+
+        LocalDate now = LocalDate.now();
+        model.addAttribute("now", now);
+
+        model.addAttribute("quoteForm", form);
 
         m.setgallonsRequested(form.getGallonsRequested());
         m.setuserid(userid);
 
-        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
+        if(form.getGallonsRequested().equals("invalid") || form.getDeliveryDate().equals("invalid"))
+        {
+            model.addAttribute("quotePrice", "There is a problem with your input of gallons requested or the delivery date. \n" +
+                                                "You may request up to 5000 gallons.");
+            return "fuelquote";
+        }
+
         FuelQuoteEntity n = new FuelQuoteEntity();
         String getFullAddress = (clientInfoEntity.get(0).getAddress1() + ", " + clientInfoEntity.get(0).getCity()
         + ", " + clientInfoEntity.get(0).getState() + " " + clientInfoEntity.get(0).getZipcode());
