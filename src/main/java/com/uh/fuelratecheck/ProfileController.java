@@ -20,9 +20,50 @@ public class ProfileController {
     private ClientInfoRepository clientInfoRepository;
 
     @GetMapping("/profile")
-	public String profile(Model model) {
+	public String profile(Model model, HttpServletRequest request) {
         ClientProfileManagementModel client = new ClientProfileManagementModel();
         model.addAttribute("profile", client);
+
+        Cookie cookie1[] = request.getCookies();
+        String userid="";
+        for(int i=0; i<cookie1.length; i++) {
+            userid = cookie1[i].getValue();
+            try{
+                Integer.parseInt(userid);
+            }
+            catch(NumberFormatException e)
+            {
+                userid=null;
+            }
+            if(userid != null)
+            {
+                break;
+            }
+        }
+
+        List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
+        ClientProfileManagementModel temp = new ClientProfileManagementModel();
+
+        //pre-fill client info if needed
+        if (clientInfoEntity.isEmpty()){
+            temp.setFullName("");
+            temp.setAddress1("");
+            temp.setAddress2("");
+            temp.setCity("");
+            temp.setState("");
+            temp.setZipcode("");
+        }
+        else{
+            temp.setFullName(clientInfoEntity.get(0).getFullName());
+            temp.setAddress1(clientInfoEntity.get(0).getAddress1());
+            temp.setAddress2(clientInfoEntity.get(0).getAddress2());
+            temp.setCity(clientInfoEntity.get(0).getCity());
+            temp.setState(clientInfoEntity.get(0).getState());
+            temp.setZipcode(clientInfoEntity.get(0).getZipcode());
+        }
+
+        model.addAttribute("prefillClientForm", temp);
+        
         return "profile";
 	}
 
