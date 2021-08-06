@@ -101,7 +101,7 @@ public class FuelQuoteController {
     }
     
     @RequestMapping(value = "/fuelquote", method = RequestMethod.POST, params = "savequote")
-    public String addNewUser (Model model, @ModelAttribute FuelQuoteForm form, HttpServletRequest request) {
+    public String saveFuelQuote (Model model, @ModelAttribute FuelQuoteForm form, HttpServletRequest request) {
         Cookie cookie[] = request.getCookies();
         String userid="";
         for(int i=0; i<cookie.length; i++) {
