@@ -15,7 +15,7 @@ public class FuelQuoteEntityTests {
 
         myEntity.setId(10);
         myEntity.setUserId(20);
-        myEntity.setgallonsRequested("30");
+        myEntity.setgallonsRequested(30);
         myEntity.setdeliveryAddress("Spring Branch");
         myEntity.setdeliveryDate("10/10/2021");
         myEntity.setsuggestedPrice("40");
