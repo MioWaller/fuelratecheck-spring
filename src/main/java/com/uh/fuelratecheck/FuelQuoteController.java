@@ -88,7 +88,7 @@ public class FuelQuoteController {
     }
     
     @RequestMapping(value = "/fuelquote", method = RequestMethod.POST, params = "savequote")
-    public String addNewUser (@ModelAttribute FuelQuoteEntity fuelquote, @RequestParam String gallonsRequested, @RequestParam String deliveryDate, HttpServletRequest request) {
+    public String addNewUser (Model model, @ModelAttribute FuelQuoteForm form, HttpServletRequest request) {
         Cookie cookie[] = request.getCookies();
         String userid="";
         for(int i=0; i<cookie.length; i++) {
@@ -106,16 +106,18 @@ public class FuelQuoteController {
 
         // TODO: Validate the inputs
         // Check the date, # of gallons requested
+        // Copy form parameters to database entity
+        // Save.
 
-        m.setgallonsRequested(gallonsRequested);
+        m.setgallonsRequested(form.getGallonsRequested());
         m.setuserid(userid);
 
         List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
         FuelQuoteEntity n = new FuelQuoteEntity();
         String getFullAddress = (clientInfoEntity.get(0).getAddress1() + ", " + clientInfoEntity.get(0).getCity()
         + ", " + clientInfoEntity.get(0).getState() + " " + clientInfoEntity.get(0).getZipcode());
-        n.setgallonsRequested(gallonsRequested);
-        n.setdeliveryDate(deliveryDate);
+        n.setgallonsRequested(form.getGallonsRequested());
+        n.setdeliveryDate(form.getDeliveryDate().toString());
         n.setdeliveryAddress(getFullAddress);
         n.setUserId(Integer.parseInt(userid));
         n.setsuggestedPrice(String.valueOf(m.calculateSuggestedPrice()));
