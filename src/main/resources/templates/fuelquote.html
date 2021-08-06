@@ -22,14 +22,15 @@ pricing module which will not be implemented in assignment 2.
         </tr>
       </tbody>
     </p>
-      <form action="#" th:action="@{/fuelquote}" th:object="${fuelquote}" method="post">
+      <form action="#" th:action="@{/fuelquote}" th:object="${quoteForm}" method="post">
         <label>How many gallons of fuel do you request?:</label><br>
-        <input type="number" th:field="*{gallonsRequested}" min="1" required="required"/><br>
+        <input type="number" th:field="*{gallonsRequested}" min="1" max="5000" required="required"/><br>
         <label>Delivery date:</label><br>
-        <input type="date" th:field="*{deliveryDate}" th:attr="min=${now}" max="2022-12-31" required="required"/><br>
-        <input type="submit" value="submit" />
-        <input type="submit" value="Get Quote" />
+        <input type="date" th:field="*{deliveryDate}" required="required" /><br>
+        <input type="submit" name="savequote" value="Save Quote" />
+        <input type="submit" name="getquote" value="Get Quote" />
       </form>
+      <div th:text="${quotePrice}"></div>
       <a href="/profile"><button>Edit Profile</button></a>
       <a href="/fuelhistory"><button>See History</button></a>
     </body>
