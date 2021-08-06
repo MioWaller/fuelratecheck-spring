@@ -78,7 +78,13 @@ public class FuelQuoteController {
         model.addAttribute("now", now);
 
         model.addAttribute("quoteForm", form);
-        model.addAttribute("quotePrice", "$4000000000");
+
+        m.setgallonsRequested(form.getGallonsRequested());
+        m.setuserid(userid);
+        String suggestedPrice=String.valueOf(m.calculateSuggestedPrice());
+        String totalPrice=String.valueOf(m.calculateTotalPrice());
+        model.addAttribute("quotePrice", "Suggested Price: $" + suggestedPrice);
+        model.addAttribute("totalPrice", "Total Price: $" + totalPrice);
         
         // Use the pricing module to calculate the quote.
 

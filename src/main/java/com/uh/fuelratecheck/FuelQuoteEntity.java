@@ -8,7 +8,7 @@ public class FuelQuoteEntity {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private Integer userid;
-    private String gallonsRequested;
+    private Integer gallonsRequested;
     private String deliveryAddress;
     private String deliveryDate;
     private String suggestedPrice;
@@ -22,11 +22,11 @@ public class FuelQuoteEntity {
         this.id = id;
     }
 
-    public String getgallonsRequested() {
+    public Integer getgallonsRequested() {
         return gallonsRequested;
     }
 
-    public void setgallonsRequested(String gallonsRequested) {
+    public void setgallonsRequested(Integer gallonsRequested) {
         this.gallonsRequested = gallonsRequested;
     }
 
