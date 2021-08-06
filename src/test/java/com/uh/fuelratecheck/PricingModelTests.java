@@ -10,12 +10,9 @@ public class PricingModelTests {
     
     @Test
     void pricingModelWasCreated() {
-        PricingModel model = new PricingModel();
+        PricingModule model = new PricingModule();
 
         assertThat(model).isNotNull();
-
-        model.setPrice(10.0);
-        assertThat(model.getPrice()).isEqualTo(10.0);
     }
 
 }
