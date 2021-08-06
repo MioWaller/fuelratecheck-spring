@@ -15,12 +15,15 @@ public class FuelQuoteController {
     private ClientInfoRepository clientInfoRepository;
     @Autowired
     PricingModule m = new PricingModule();
+    
+    FuelQuoteForm form = new FuelQuoteForm();
 
     @GetMapping("/fuelquote")
     public String fuelquote(Model model, HttpServletRequest request) {
         LocalDate now = LocalDate.now();
-        LocalDate later = now.plusDays(14);
+        LocalDate later = now.plusYears(2);
         model.addAttribute("now", now);
+        model.addAttribute("later", later);
 
         //get cookies to find out which user is editing their client info
         Cookie cookie1[] = request.getCookies();
@@ -42,9 +45,8 @@ public class FuelQuoteController {
 
         model.addAttribute("entities", clientInfoEntity);
 
-        FuelQuoteForm form = new FuelQuoteForm();
-        form.gallonsRequested = 100;
-        form.deliveryDate = later;
+        form.gallonsRequested = "100";
+        form.deliveryDate = now.toString();
 
         model.addAttribute("quoteForm", form);
         model.addAttribute("quotePrice", "");
@@ -81,16 +83,21 @@ public class FuelQuoteController {
 
         m.setgallonsRequested(form.getGallonsRequested());
         m.setuserid(userid);
-        String suggestedPrice=String.valueOf(m.calculateSuggestedPrice());
-        String totalPrice=String.valueOf(m.calculateTotalPrice());
-        model.addAttribute("quotePrice", "Suggested Price: $" + suggestedPrice);
-        model.addAttribute("totalPrice", "Total Price: $" + totalPrice);
-        
-        // Use the pricing module to calculate the quote.
-
-        // Added both the parameters and the result to the model via addAttributes (quotePrice, gallonsRequested, deliveryDate)
+        if(form.getGallonsRequested().equals("invalid") || form.getDeliveryDate().equals("invalid"))
+        {
+            model.addAttribute("quotePrice", "There is a problem with your input of gallons requested or the delivery date. \n" +
+                                                "You may request up to 5000 gallons.");
+        }
+        else
+        {
+            String suggestedPrice=String.valueOf(m.calculateSuggestedPrice());
+            String totalPrice=String.valueOf(m.calculateTotalPrice());
+            model.addAttribute("quotePrice", "Suggested Price: $" + suggestedPrice + "/gal");
+            model.addAttribute("totalPrice", "Total Price: $" + totalPrice);
+        }
 
         return "fuelquote";
+        
     }
     
     @RequestMapping(value = "/fuelquote", method = RequestMethod.POST, params = "savequote")

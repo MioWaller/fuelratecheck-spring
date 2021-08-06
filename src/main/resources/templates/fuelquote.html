@@ -26,7 +26,7 @@ pricing module which will not be implemented in assignment 2.
         <label>How many gallons of fuel do you request?:</label><br>
         <input type="number" th:field="*{gallonsRequested}" min="1" max="5000" required="required"/><br>
         <label>Delivery date:</label><br>
-        <input type="date" th:field="*{deliveryDate}" required="required" /><br>
+        <input type="date" th:field="*{deliveryDate}" th:attr="min=${now}" required="required" /><br>
         <input type="submit" name="savequote" value="Save Quote" />
         <input type="submit" name="getquote" value="Get Quote" />
       </form>
