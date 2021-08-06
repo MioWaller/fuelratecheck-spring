@@ -62,7 +62,7 @@ public class ProfileController {
             temp.setZipcode(clientInfoEntity.get(0).getZipcode());
         }
 
-        model.addAttribute("prefillClientForm", temp);
+        model.addAttribute("temp", temp);
         
         return "profile";
 	}

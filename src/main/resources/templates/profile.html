@@ -9,7 +9,7 @@
     <form action="#" th:action="@{/profile}" th:object="${profile}" method="post">
         <h>Profile</h><br>
         <label>Full Name:</label><br>
-        <input type="text" maxlength="50" th:field="*{fullName}" value = ${temp.fullName} required/><br>
+        <input type="text" maxlength="50" th:field="*{fullName}" value = ${temp.fullname} required/><br>
         <label> Address1:</label><br>
         <input type="text" maxlength="100" th:field="*{address1}" value = ${temp.address1} required/><br>
         <label> Address2:</label><br>
@@ -17,7 +17,7 @@
         <label> City:</label><br>
         <input type="text" maxlength="50" th:field="*{city}" value = ${temp.city} required/><br>
         <label> State:</label><br>
-        <select th:field="*{state}" value = ${temp.state}required>
+        <select th:field="*{state}" value = ${temp.state} required>
             <option value="AL">AL</option>
             <option value="AK">AK</option>
             <option value="AZ">AZ</option>
