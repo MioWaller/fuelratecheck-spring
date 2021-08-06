@@ -33,6 +33,17 @@ public class FuelQuoteFormTests {
         assertEquals(fuelQuoteForm.getGallonsRequested(), "invalid");
         assertEquals(fuelQuoteForm.getDeliveryDate(), "invalid");
     }
-    
 
+    @Test
+    void gettersAndSetters() {
+        FuelQuoteForm fuelQuoteForm = new FuelQuoteForm();
+
+        assertThat(fuelQuoteForm).isNotNull();
+
+        fuelQuoteForm.setGallonsRequested("invalid");
+        fuelQuoteForm.setDeliveryDate("2021-2-24");
+
+        assertEquals(fuelQuoteForm.getGallonsRequested(), "invalid");
+        assertEquals(fuelQuoteForm.getDeliveryDate(), "2021-2-24");
+    }
 }
