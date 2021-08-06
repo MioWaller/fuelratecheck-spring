@@ -21,8 +21,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
 	public String profile(Model model, HttpServletRequest request) {
-        ClientProfileManagementModel client = new ClientProfileManagementModel();
-        model.addAttribute("profile", client);
+        ClientProfileManagementModel temp = new ClientProfileManagementModel();
 
         Cookie cookie1[] = request.getCookies();
         String userid="";
@@ -42,7 +41,6 @@ public class ProfileController {
         }
 
         List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
-        ClientProfileManagementModel temp = new ClientProfileManagementModel();
 
         //pre-fill client info if needed
         if (clientInfoEntity.isEmpty()){
@@ -63,25 +61,25 @@ public class ProfileController {
         }
 
         model.addAttribute("temp", temp);
-        
+
         return "profile";
 	}
 
     @PostMapping("/profile")
-    public String profileSubmit(HttpServletRequest request, @ModelAttribute ClientProfileManagementModel client) {
+    public String profileSubmit(HttpServletRequest request, @ModelAttribute ClientProfileManagementModel temp) {
         // Validate the inputs, if invalid refresh profile page
 
-        if (client.getZipcode().length() < 5 ||
-            client.getZipcode().length() > 9 ||
-            !isNumber(client.getZipcode()) ||
-            client.getAddress1() == "" || 
-            client.getAddress1().length() > 100 ||
-            client.getCity() == "" ||
-            client.getCity().length() > 100 ||
-            client.getState() == "" ||
-            client.getState().length() != 2 ||
-            client.getFullName() == "" || 
-            client.getFullName().length() > 50)
+        if (temp.getZipcode().length() < 5 ||
+            temp.getZipcode().length() > 9 ||
+            !isNumber(temp.getZipcode()) ||
+            temp.getAddress1() == "" || 
+            temp.getAddress1().length() > 100 ||
+            temp.getCity() == "" ||
+            temp.getCity().length() > 100 ||
+            temp.getState() == "" ||
+            temp.getState().length() != 2 ||
+            temp.getFullName() == "" || 
+            temp.getFullName().length() > 50)
         {
             return "redirect:/profile";
         }
@@ -122,23 +120,23 @@ public class ProfileController {
             // No user with that client id exists, lets create it.
             ClientInfoEntity newClientInfo = new ClientInfoEntity();
 
-            newClientInfo.setFullName(client.getFullName());
-            newClientInfo.setAddress1(client.getAddress1());
-            newClientInfo.setAddress2(client.getAddress2());
-            newClientInfo.setCity(client.getCity());
-            newClientInfo.setState(client.getState());
-            newClientInfo.setZipcode(client.getZipcode());
+            newClientInfo.setFullName(temp.getFullName());
+            newClientInfo.setAddress1(temp.getAddress1());
+            newClientInfo.setAddress2(temp.getAddress2());
+            newClientInfo.setCity(temp.getCity());
+            newClientInfo.setState(temp.getState());
+            newClientInfo.setZipcode(temp.getZipcode());
             newClientInfo.setUserId(Integer.parseInt(userid));
 
             clientInfoRepository.save(newClientInfo);
         } else {
             // User client info exists, lets update it.
-            clientInfoEntity.get(0).setFullName(client.getFullName());
-            clientInfoEntity.get(0).setAddress1(client.getAddress1());
-            clientInfoEntity.get(0).setAddress2(client.getAddress2());
-            clientInfoEntity.get(0).setCity(client.getCity());
-            clientInfoEntity.get(0).setState(client.getState());
-            clientInfoEntity.get(0).setZipcode(client.getZipcode());
+            clientInfoEntity.get(0).setFullName(temp.getFullName());
+            clientInfoEntity.get(0).setAddress1(temp.getAddress1());
+            clientInfoEntity.get(0).setAddress2(temp.getAddress2());
+            clientInfoEntity.get(0).setCity(temp.getCity());
+            clientInfoEntity.get(0).setState(temp.getState());
+            clientInfoEntity.get(0).setZipcode(temp.getZipcode());
 
             clientInfoRepository.save(clientInfoEntity.get(0));
         }
