@@ -6,16 +6,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-    <form action="#" th:action="@{/profile}" th:object="${profile}" method="post">
+    <form action="#" th:action="@{/profile}" th:object="${temp}" method="post">
         <h>Profile</h><br>
         <label>Full Name:</label><br>
-        <input type="text" maxlength="50" th:field="*{fullName}" required/><br>
+        <input type="text" maxlength="50" th:field="*{fullName}"  required/><br>
         <label> Address1:</label><br>
-        <input type="text" maxlength="100" th:field="*{address1}" required/><br>
+        <input type="text" maxlength="100" th:field="*{address1}"  required/><br>
         <label> Address2:</label><br>
         <input type="text" maxlength="100" th:field="*{address2}" /><br>
         <label> City:</label><br>
-        <input type="text" maxlength="50" th:field="*{city}" required/><br>
+        <input type="text" maxlength="50" th:field="*{city}"  required/><br>
         <label> State:</label><br>
         <select th:field="*{state}" required>
             <option value="AL">AL</option>
