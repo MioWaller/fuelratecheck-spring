@@ -11,7 +11,7 @@ public class PricingModule {
 	private ClientInfoRepository clientInfoRepository;
 
     String state;
-    Integer gallonsrequested;
+    String gallonsrequested;
     double locationFactor;
     double rateHistoryFactor;
     double gallonsRequestedFactor;
@@ -20,7 +20,7 @@ public class PricingModule {
     double totalPrice;
     String userid;
 
-    public void setgallonsRequested(Integer gallonsrequested) {
+    public void setgallonsRequested(String gallonsrequested) {
         this.gallonsrequested = gallonsrequested;
     }
     
@@ -47,7 +47,7 @@ public class PricingModule {
         historycheck();
         List<ClientInfoEntity> clientInfoEntity = clientInfoRepository.findByUserid(Integer.parseInt(userid));
         state = clientInfoEntity.get(0).getState();
-        if(gallonsrequested > 1000)
+        if(Integer.parseInt(gallonsrequested) > 1000)
         {
             gallonsRequestedFactor = .02;
         }
@@ -71,7 +71,7 @@ public class PricingModule {
 
     public double calculateTotalPrice(){
         calculateSuggestedPrice();
-        totalPrice = gallonsrequested * suggestedPrice;
+        totalPrice = Integer.parseInt(gallonsrequested) * suggestedPrice;
         return totalPrice;
     }
 
