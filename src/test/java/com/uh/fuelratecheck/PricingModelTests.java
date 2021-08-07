@@ -301,6 +301,4 @@ public class PricingModelTests {
         double totalPrice = module.calculateTotalPrice();
         assertThat(totalPrice).isEqualTo(175.5);
     }
-
-
 }
