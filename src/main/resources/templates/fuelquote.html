@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+So basically the purpose of this specific html file is to handle input for a given Fuel Quote request.
+After the user requests a Quote they will be directed to this page to input gallonsRequested and
+deliveryDate. After they click submit, suggestedPrice and totalAmountDue will be calculated using the
+pricing module which will not be implemented in assignment 2.
+-->
+<html xmlns:th="http://www.thymeleaf.org/%22%3E"></html>
+    <body>
+      <h2> Enter the fuel quote info for
+      <tbody>
+        <tr th:each="myEntity : ${entities}">
+          <td><span th:text="${myEntity.getFullName()}"></span></td>
+        </tr>
+      </tbody>
+    </h2>
+      <!-- Write some code here that will mention the name of the Client-->
+      <p>Your delivery adress is
+      <tbody>
+        <tr th:each="myEntity : ${entities}">
+          <td><span th:text="${myEntity.printAddress()}"></span></td>
+        </tr>
+      </tbody>
+    </p>
+      <form action="#" th:action="@{/fuelquote}" th:object="${quoteForm}" method="post">
+        <label>How many gallons of fuel do you request?:</label><br>
+        <input type="number" th:field="*{gallonsRequested}" min="1" max="5000" required="required"/><br>
+        <label>Delivery date:</label><br>
+        <input type="date" th:field="*{deliveryDate}" th:attr="min=${now}" required="required" /><br>
+        <input type="submit" name="savequote" value="Save Quote" />
+        <input type="submit" name="getquote" value="Get Quote" />
+      </form>
+      <div th:text="${quotePrice}"></div>
+      <div th:text="${totalPrice}"></div>
+      <a href="/profile"><button>Edit Profile</button></a>
+      <a href="/fuelhistory"><button>See History</button></a>
+    </body>
+
+</html>
